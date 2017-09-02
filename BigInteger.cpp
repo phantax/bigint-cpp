@@ -601,20 +601,19 @@ void BigInteger::printHexadecimal() const {
 
 	string hex = "0123456789ABCDEF";
 
-	if (limbs_.size() > 0) {
-		for (size_t i = limbs_.size(); i-- > 0;) {
-			limb_t d = limbs_[i];
-			for (size_t j = 0; j < limbBitSize; j += 4) {
-				size_t v = (d & ((limb_t)0xF << (limbBitSize - 4)))
-						>> (limbBitSize - 4);
-				d <<= 4;
-				cout << hex[v];
-			}
-		}
-	} else {
+	if (limbs_.size() == 0) {
 		cout << "0";
+    }
+
+	for (size_t i = limbs_.size(); i-- > 0;) {
+		limb_t d = limbs_[i];
+		for (size_t j = 0; j < limbBitSize; j += 4) {
+			size_t v = (d & ((limb_t)0xF << (limbBitSize - 4)))
+					>> (limbBitSize - 4);
+			d <<= 4;
+			cout << hex[v];
+		}
 	}
-	cout << endl;
 }
 
 
